@@ -26,7 +26,7 @@ namespace ControleEstoque.Controllers
         }
 
         // GET: Fornecedor/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
             {
@@ -86,7 +86,7 @@ namespace ControleEstoque.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nome,Endereco,Telefone")] Fornecedor fornecedor)
+        public async Task<IActionResult> Edit(Guid id, [Bind("Id,Nome,Endereco,Telefone")] Fornecedor fornecedor)
         {
             if (id != fornecedor.Id)
             {
@@ -117,7 +117,7 @@ namespace ControleEstoque.Controllers
         }
 
         // GET: Fornecedor/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
             {
@@ -149,7 +149,7 @@ namespace ControleEstoque.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool FornecedorExists(int id)
+        private bool FornecedorExists(Guid id)
         {
             return _context.Fornecedor.Any(e => e.Id == id);
         }

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ControleEstoque.Models
 {
@@ -6,17 +7,24 @@ namespace ControleEstoque.Models
     {
         [Key]
         public Guid Id { get; set; }
-        
+
+        [ForeignKey(nameof(Produto))]
         public Guid ProdutoId { get; set; }
+        public required Produto Produto { get; set; }
+
+        [ForeignKey(nameof(Fornecedor))]
         public Guid FornecedorId { get; set; }
+        public Fornecedor? Fornecedor { get; set; }
+
+        [ForeignKey(nameof(Cliente))]
         public Guid ClienteId { get; set; }
+        public Cliente? Cliente { get; set; }
 
         [Required(ErrorMessage = "Tipo da Movimentação é obrigatorio")]
-        public required Boolean TipoMovimentacao { get; set; }
+        public required string TipoMovimentacao { get; set; }
 
         [Required(ErrorMessage = "Quantidade da Movimentação é obrigatorio")]
-        public required string Quantidade{ get; set; }
-
+        public required string Quantidade { get; set; }
 
         private DateTime _data = DateTime.Today;
 
@@ -26,10 +34,5 @@ namespace ControleEstoque.Models
             get { return _data; }
             set { _data = value; }
         }
-
-        // Relacionamentos com outras entidades
-        public Produto Produto { get; set; }
-        public Fornecedor Fornecedor { get; set; }
-        public Cliente Cliente { get; set; }
     }
 }

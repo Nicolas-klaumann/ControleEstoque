@@ -49,6 +49,8 @@ namespace ControleEstoque.Controllers
         public IActionResult Create()
         {
             ViewData["ProdutoId"] = new SelectList(_context.Produto, "Id", "Nome");
+            ViewData["FornecedorId"] = new SelectList(_context.Fornecedor, "Id", "Nome");
+            ViewData["ClienteId"] = new SelectList(_context.Cliente, "Id", "Nome");
             return View();
         }
 
@@ -67,6 +69,8 @@ namespace ControleEstoque.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["ProdutoId"] = new SelectList(_context.Produto, "Id", "Nome", movimentacao.ProdutoId);
+            ViewData["FornecedorId"] = new SelectList(_context.Fornecedor, "Id", "Nome", movimentacao.FornecedorId);
+            ViewData["ClienteId"] = new SelectList(_context.Cliente, "Id", "Nome", movimentacao.ClienteId);
             return View(movimentacao);
         }
 

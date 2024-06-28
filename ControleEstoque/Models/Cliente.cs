@@ -5,7 +5,7 @@ namespace ControleEstoque.Models
     public class Cliente
     {
         [Key]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         [Required(ErrorMessage = "Nome é obrigatorio")]
         public required string Nome { get; set; }

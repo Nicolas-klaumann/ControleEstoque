@@ -26,7 +26,7 @@ namespace ControleEstoque.Controllers
         }
 
         // GET: Cliente/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
             {
@@ -86,7 +86,7 @@ namespace ControleEstoque.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nome,Endereco,Telefone,Email")] Cliente cliente)
+        public async Task<IActionResult> Edit(Guid id, [Bind("Id,Nome,Endereco,Telefone,Email")] Cliente cliente)
         {
             if (id != cliente.Id)
             {
@@ -117,7 +117,7 @@ namespace ControleEstoque.Controllers
         }
 
         // GET: Cliente/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
             {
@@ -137,7 +137,7 @@ namespace ControleEstoque.Controllers
         // POST: Cliente/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
             var cliente = await _context.Cliente.FindAsync(id);
             if (cliente != null)
@@ -149,7 +149,7 @@ namespace ControleEstoque.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ClienteExists(int id)
+        private bool ClienteExists(Guid id)
         {
             return _context.Cliente.Any(e => e.Id == id);
         }

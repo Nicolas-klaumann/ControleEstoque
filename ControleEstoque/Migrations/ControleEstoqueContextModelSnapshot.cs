@@ -24,11 +24,9 @@ namespace ControleEstoque.Migrations
 
             modelBuilder.Entity("ControleEstoque.Models.Cliente", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Email")
                         .HasColumnType("text");
@@ -51,11 +49,9 @@ namespace ControleEstoque.Migrations
 
             modelBuilder.Entity("ControleEstoque.Models.Fornecedor", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Endereco")
                         .HasColumnType("text");
@@ -82,17 +78,11 @@ namespace ControleEstoque.Migrations
                     b.Property<Guid>("ClienteId")
                         .HasColumnType("uuid");
 
-                    b.Property<int>("ClienteId1")
-                        .HasColumnType("integer");
-
                     b.Property<DateTime>("Data")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<Guid>("FornecedorId")
                         .HasColumnType("uuid");
-
-                    b.Property<int>("FornecedorId1")
-                        .HasColumnType("integer");
 
                     b.Property<Guid>("ProdutoId")
                         .HasColumnType("uuid");
@@ -107,9 +97,9 @@ namespace ControleEstoque.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ClienteId1");
+                    b.HasIndex("ClienteId");
 
-                    b.HasIndex("FornecedorId1");
+                    b.HasIndex("FornecedorId");
 
                     b.HasIndex("ProdutoId");
 
@@ -144,13 +134,13 @@ namespace ControleEstoque.Migrations
                 {
                     b.HasOne("ControleEstoque.Models.Cliente", "Cliente")
                         .WithMany()
-                        .HasForeignKey("ClienteId1")
+                        .HasForeignKey("ClienteId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("ControleEstoque.Models.Fornecedor", "Fornecedor")
                         .WithMany()
-                        .HasForeignKey("FornecedorId1")
+                        .HasForeignKey("FornecedorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
