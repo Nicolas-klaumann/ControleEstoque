@@ -26,8 +26,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="TipoMovimentacao" class="control-label"></label>
-                <input asp-for="TipoMovimentacao" class="form-control" />
-                <span asp-validation-for="TipoMovimentacao" class="text-danger"></span>
+                <select asp-for="TipoMovimentacao" class="form-control" asp-items="ViewBag.TipoMovimentacao"></select>
             </div>
             <div class="form-group">
                 <label asp-for="Quantidade" class="control-label"></label>

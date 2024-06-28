@@ -51,6 +51,11 @@ namespace ControleEstoque.Controllers
             ViewData["ProdutoId"] = new SelectList(_context.Produto, "Id", "Nome");
             ViewData["FornecedorId"] = new SelectList(_context.Fornecedor, "Id", "Nome");
             ViewData["ClienteId"] = new SelectList(_context.Cliente, "Id", "Nome");
+            ViewData["TipoMovimentacao"] = new SelectList(new[] {
+                new { Value = "entrada", Text = "Entrada" },
+                new { Value = "saida", Text = "Saída" }
+            }, "Value", "Text");
+
             return View();
         }
 
@@ -71,6 +76,11 @@ namespace ControleEstoque.Controllers
             ViewData["ProdutoId"] = new SelectList(_context.Produto, "Id", "Nome", movimentacao.ProdutoId);
             ViewData["FornecedorId"] = new SelectList(_context.Fornecedor, "Id", "Nome", movimentacao.FornecedorId);
             ViewData["ClienteId"] = new SelectList(_context.Cliente, "Id", "Nome", movimentacao.ClienteId);
+            ViewData["TipoMovimentacao"] = new SelectList(new[] {
+                new { Value = "entrada", Text = "Entrada" },
+                new { Value = "saida", Text = "Saída" }
+            }, "Value", "Text");
+
             return View(movimentacao);
         }
 
