@@ -66,7 +66,7 @@ namespace ControleEstoque.Controllers
         }
 
         // GET: Cliente/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null)
             {

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ControleEstoque.Data;
 using ControleEstoque.Models;
+using Microsoft.Extensions.WebEncoders.Testing;
 
 namespace ControleEstoque.Controllers
 {
@@ -48,9 +49,22 @@ namespace ControleEstoque.Controllers
         // GET: Movimentacao/Create
         public IActionResult Create()
         {
-            ViewData["ProdutoId"] = new SelectList(_context.Produto, "Id", "Nome");
-            ViewData["FornecedorId"] = new SelectList(_context.Fornecedor, "Id", "Nome");
-            ViewData["ClienteId"] = new SelectList(_context.Cliente, "Id", "Nome");
+            // Produto
+            var produtos = _context.Produto.Select(p => new { p.Id, p.Nome }).ToList();
+            produtos.Insert(0, new { Id = Guid.Empty, Nome = "Selecione um Produto" });
+            ViewData["ProdutoId"] = new SelectList(produtos, "Id", "Nome");
+
+            // Fornecedor
+            var fornecedores = _context.Fornecedor.Select(f => new { f.Id, f.Nome }).ToList();
+            fornecedores.Insert(0, new { Id = Guid.Empty, Nome = "Selecione um Fornecedor" });
+            ViewData["FornecedorId"] = new SelectList(fornecedores, "Id", "Nome");
+
+            // Cliente
+            var clientes = _context.Cliente.Select(c => new { c.Id, c.Nome }).ToList();
+            clientes.Insert(0, new { Id = Guid.Empty, Nome = "Selecione um Cliente" });
+            ViewData["ClienteId"] = new SelectList(clientes, "Id", "Nome");
+
+            // TipoMovimentacao
             ViewData["TipoMovimentacao"] = new SelectList(new[] {
                 new { Value = "entrada", Text = "Entrada" },
                 new { Value = "saida", Text = "Saída" }
@@ -59,6 +73,8 @@ namespace ControleEstoque.Controllers
             return View();
         }
 
+
+
         // POST: Movimentacao/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -66,22 +82,38 @@ namespace ControleEstoque.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,ProdutoId,FornecedorId,ClienteId,TipoMovimentacao,Quantidade,Data")] Movimentacao movimentacao)
         {
-            if (ModelState.IsValid)
+            try
             {
                 movimentacao.Id = Guid.NewGuid();
+                movimentacao = await parseProps(movimentacao);
                 _context.Add(movimentacao);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
-            }
-            ViewData["ProdutoId"] = new SelectList(_context.Produto, "Id", "Nome", movimentacao.ProdutoId);
-            ViewData["FornecedorId"] = new SelectList(_context.Fornecedor, "Id", "Nome", movimentacao.FornecedorId);
-            ViewData["ClienteId"] = new SelectList(_context.Cliente, "Id", "Nome", movimentacao.ClienteId);
-            ViewData["TipoMovimentacao"] = new SelectList(new[] {
-                new { Value = "entrada", Text = "Entrada" },
-                new { Value = "saida", Text = "Saída" }
-            }, "Value", "Text");
+            } catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, ex.Message);
 
-            return View(movimentacao);
+                // Produto select list
+                ViewData["ProdutoId"] = new SelectList(_context.Produto, "Id", "Nome");
+
+                // Fornecedor select list with empty option
+                var fornecedores = _context.Fornecedor.Select(f => new { f.Id, f.Nome }).ToList();
+                fornecedores.Insert(0, new { Id = Guid.Empty, Nome = "Selecione um Fornecedor" });
+                ViewData["FornecedorId"] = new SelectList(fornecedores, "Id", "Nome");
+
+                // Cliente select list with empty option
+                var clientes = _context.Cliente.Select(c => new { c.Id, c.Nome }).ToList();
+                clientes.Insert(0, new { Id = Guid.Empty, Nome = "Selecione um Cliente" });
+                ViewData["ClienteId"] = new SelectList(clientes, "Id", "Nome");
+
+                // TipoMovimentacao select list
+                ViewData["TipoMovimentacao"] = new SelectList(new[] {
+                    new { Value = "entrada", Text = "Entrada" },
+                    new { Value = "saida", Text = "Saída" }
+                }, "Value", "Text");
+
+                return View();
+            }
         }
 
         // GET: Movimentacao/Edit/5
@@ -174,6 +206,34 @@ namespace ControleEstoque.Controllers
         private bool MovimentacaoExists(Guid id)
         {
             return _context.Movimentacao.Any(e => e.Id == id);
+        }
+
+        public async Task<Movimentacao> parseProps(Movimentacao movimentacao)
+        {
+            if ((movimentacao.ClienteId != Guid.Empty && movimentacao.ClienteId != Guid.Parse("00000000-0000-0000-0000-000000000000")) &&
+                (movimentacao.FornecedorId != Guid.Empty && movimentacao.FornecedorId != Guid.Parse("00000000-0000-0000-0000-000000000000")))
+            {
+                throw new Exception("Não é possível cadastrar uma movimentação com cliente e um fornecedor no mesmo registro");
+            }
+
+            if (movimentacao.ClienteId == Guid.Empty && movimentacao.FornecedorId == Guid.Empty)
+            {
+                throw new Exception("Não é possível cadastrar uma movimentação sem pelos menos um cliente ou fornecedor");
+            }
+
+            if (movimentacao.ClienteId == Guid.Parse("00000000-0000-0000-0000-000000000000")) movimentacao.ClienteId = null;
+            if (movimentacao.FornecedorId == Guid.Parse("00000000-0000-0000-0000-000000000000")) movimentacao.FornecedorId = null;
+
+            if (movimentacao.Data.Kind == DateTimeKind.Unspecified)
+            {
+                movimentacao.Data = DateTime.SpecifyKind(movimentacao.Data, DateTimeKind.Utc);
+            }
+            else if (movimentacao.Data.Kind == DateTimeKind.Local)
+            {
+                movimentacao.Data = movimentacao.Data.ToUniversalTime();
+            }
+
+            return movimentacao;
         }
     }
 }

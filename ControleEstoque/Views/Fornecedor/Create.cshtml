@@ -24,7 +24,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Telefone" class="control-label"></label>
-                <input asp-for="Telefone" class="form-control" />
+                <input asp-for="Telefone" id="telefone" class="form-control" />
                 <span asp-validation-for="Telefone" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -39,5 +39,22 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <!-- Script para formatar o telefone -->
+    <script>
+        var telefoneInput = document.getElementById('telefone');
+
+        telefoneInput.addEventListener('input', function () {
+            var telefone = telefoneInput.value.replace(/\D/g, '');
+
+            if (telefone.length === 11) {
+                telefoneInput.value = '(' + telefone.substring(0, 2) + ') ' + telefone.substring(2, 7) + '-' + telefone.substring(7);
+            } else if (telefone.length === 10) {
+                telefoneInput.value = '(' + telefone.substring(0, 2) + ') ' + telefone.substring(2, 6) + '-' + telefone.substring(6);
+            }
+        });
+    </script>
 }

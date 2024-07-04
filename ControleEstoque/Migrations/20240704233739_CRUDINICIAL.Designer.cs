@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ControleEstoque.Migrations
 {
     [DbContext(typeof(ControleEstoqueContext))]
-    [Migration("20240628212920_ProjetoBase")]
-    partial class ProjetoBase
+    [Migration("20240704233739_CRUDINICIAL")]
+    partial class CRUDINICIAL
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -78,13 +78,13 @@ namespace ControleEstoque.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("ClienteId")
+                    b.Property<Guid?>("ClienteId")
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("Data")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<Guid>("FornecedorId")
+                    b.Property<Guid?>("FornecedorId")
                         .HasColumnType("uuid");
 
                     b.Property<Guid>("ProdutoId")
@@ -137,15 +137,11 @@ namespace ControleEstoque.Migrations
                 {
                     b.HasOne("ControleEstoque.Models.Cliente", "Cliente")
                         .WithMany()
-                        .HasForeignKey("ClienteId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ClienteId");
 
                     b.HasOne("ControleEstoque.Models.Fornecedor", "Fornecedor")
                         .WithMany()
-                        .HasForeignKey("FornecedorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("FornecedorId");
 
                     b.HasOne("ControleEstoque.Models.Produto", "Produto")
                         .WithMany()

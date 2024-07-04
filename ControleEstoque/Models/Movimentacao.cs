@@ -9,15 +9,15 @@ namespace ControleEstoque.Models
         public Guid Id { get; set; }
 
         [ForeignKey(nameof(Produto))]
-        public Guid ProdutoId { get; set; }
-        public required Produto Produto { get; set; }
+        public required Guid ProdutoId { get; set; }
+        public Produto Produto { get; set; }
 
         [ForeignKey(nameof(Fornecedor))]
-        public Guid FornecedorId { get; set; }
+        public Guid? FornecedorId { get; set; }
         public Fornecedor? Fornecedor { get; set; }
 
         [ForeignKey(nameof(Cliente))]
-        public Guid ClienteId { get; set; }
+        public Guid? ClienteId { get; set; }
         public Cliente? Cliente { get; set; }
 
         [Required(ErrorMessage = "Tipo da Movimentação é obrigatorio")]

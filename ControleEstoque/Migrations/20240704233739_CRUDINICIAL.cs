@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ControleEstoque.Migrations
 {
     /// <inheritdoc />
-    public partial class ProjetoBase : Migration
+    public partial class CRUDINICIAL : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -61,8 +61,8 @@ namespace ControleEstoque.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     ProdutoId = table.Column<Guid>(type: "uuid", nullable: false),
-                    FornecedorId = table.Column<Guid>(type: "uuid", nullable: false),
-                    ClienteId = table.Column<Guid>(type: "uuid", nullable: false),
+                    FornecedorId = table.Column<Guid>(type: "uuid", nullable: true),
+                    ClienteId = table.Column<Guid>(type: "uuid", nullable: true),
                     TipoMovimentacao = table.Column<string>(type: "text", nullable: false),
                     Quantidade = table.Column<string>(type: "text", nullable: false),
                     Data = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
@@ -74,14 +74,12 @@ namespace ControleEstoque.Migrations
                         name: "FK_Movimentacao_Cliente_ClienteId",
                         column: x => x.ClienteId,
                         principalTable: "Cliente",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Movimentacao_Fornecedor_FornecedorId",
                         column: x => x.FornecedorId,
                         principalTable: "Fornecedor",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Movimentacao_Produto_ProdutoId",
                         column: x => x.ProdutoId,
