@@ -234,6 +234,7 @@ namespace ControleEstoque.Controllers
             }
 
             return movimentacao;
+
         }
     }
 }

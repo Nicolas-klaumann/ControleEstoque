@@ -1,10 +1,10 @@
 ﻿@model ControleEstoque.Models.Fornecedor
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detelhes do Fornecedor";
 }
 
-<h1>Details</h1>
+<h1>Detelhes do Fornecedor</h1>
 
 <div>
     <h4>Fornecedor</h4>
@@ -30,9 +30,9 @@
         </dd>
     </dl>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+<div class="form-group mt-3">
+    <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-primary">Editar</a>
+    <a asp-action="Index" class="btn btn-secondary">Voltar a lista</a>
 </div>
 
 <style>
