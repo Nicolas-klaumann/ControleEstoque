@@ -129,6 +129,23 @@ namespace ControleEstoque.Controllers
             {
                 return NotFound();
             }
+
+            // TipoMovimentacao
+            ViewData["TipoMovimentacao"] = new SelectList(new[] {
+                new { Value = "entrada", Text = "Entrada" },
+                new { Value = "saida", Text = "Saída" }
+            }, "Value", "Text");
+
+            // Fornecedor select list with empty option
+            var fornecedores = _context.Fornecedor.Select(f => new { f.Id, f.Nome }).ToList();
+            fornecedores.Insert(0, new { Id = Guid.Empty, Nome = "Selecione um Fornecedor" });
+            ViewData["FornecedorId"] = new SelectList(fornecedores, "Id", "Nome");
+
+            // Cliente select list with empty option
+            var clientes = _context.Cliente.Select(c => new { c.Id, c.Nome }).ToList();
+            clientes.Insert(0, new { Id = Guid.Empty, Nome = "Selecione um Cliente" });
+            ViewData["ClienteId"] = new SelectList(clientes, "Id", "Nome");
+
             ViewData["ProdutoId"] = new SelectList(_context.Produto, "Id", "Nome", movimentacao.ProdutoId);
             return View(movimentacao);
         }

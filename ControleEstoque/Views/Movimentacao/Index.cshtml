@@ -5,33 +5,7 @@
 }
 
 <!-- Adicione jQuery ao seu projeto, se ainda não estiver incluído -->
-@section Scripts {
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            // Esconder o campo inicialmente
-            $("#clienteId").hide();
-
-            // Monitorar mudanças no campo de fornecedor
-            $("#fornecedorId").change(function () {
-                if ($(this).val() !== '') {
-                    $("#clienteId").hide();
-                } else {
-                    $("#clienteId").show();
-                }
-            });
-
-            // Monitorar mudanças no campo de cliente
-            $("#clienteId").change(function () {
-                if ($(this).val() !== '') {
-                    $("#fornecedorId").hide();
-                } else {
-                    $("#fornecedorId").show();
-                }
-            });
-        });
-    </script>
-}
+@section Scripts {}
 
 <h1>Movimentações</h1>
 
@@ -43,10 +17,7 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.FornecedorId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ClienteId)
+                @Html.DisplayNameFor(model => model.Produto)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.TipoMovimentacao)
@@ -55,10 +26,13 @@
                 @Html.DisplayNameFor(model => model.Quantidade)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Data)
+                @Html.DisplayNameFor(model => model.FornecedorId)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Produto)
+                @Html.DisplayNameFor(model => model.ClienteId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Data)
             </th>
             <th></th>
         </tr>
@@ -68,10 +42,7 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.FornecedorId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ClienteId)
+                    @Html.DisplayFor(modelItem => item.Produto.Nome)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.TipoMovimentacao)
@@ -80,10 +51,13 @@
                     @Html.DisplayFor(modelItem => item.Quantidade)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Data)
+                    @Html.DisplayFor(modelItem => item.FornecedorId)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Produto.Nome)
+                    @Html.DisplayFor(modelItem => item.ClienteId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Data)
                 </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary btn-sm">Editar</a>

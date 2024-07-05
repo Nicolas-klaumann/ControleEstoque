@@ -137,7 +137,7 @@ namespace ControleEstoque.Controllers
         // POST: Fornecedor/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
             var fornecedor = await _context.Fornecedor.FindAsync(id);
             if (fornecedor != null)
