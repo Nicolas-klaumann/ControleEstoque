@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "Index";
 }
-
+<link rel="stylesheet" href="~/Views/Shared/style-index.css" asp-append-version="true" />
 <h1>Index</h1>
 
 <p>
@@ -54,11 +54,11 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Produto.Nome)
             </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary btn-sm">Editar</a>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-sm">Detalhes</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Deletar</a>
+                </td>
         </tr>
 }
     </tbody>

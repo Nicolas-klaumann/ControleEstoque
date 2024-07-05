@@ -1,8 +1,23 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Página Inicial";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 offset-md-2 text-center">
+            <h1 class="display-4">Bem-vindo ao Sistema ControleEstoque</h1>
+            <p class="lead">O melhor lugar para gerenciar seus produtos e estoques de forma eficiente.</p>
+            <hr class="my-4">
+            <p class="font-weight-normal">Nosso sistema oferece ferramentas avançadas para monitorar, atualizar e analisar seu inventário.</p>
+            <p class="font-weight-normal">Aqui você pode facilmente:</p>
+            <ul class="list-unstyled">
+                <li><i class="fas fa-check-circle text-success"></i> Visualizar e atualizar informações de estoque</li>
+                <li><i class="fas fa-check-circle text-success"></i> Adicionar novos produtos e categorias</li>
+                <li><i class="fas fa-check-circle text-success"></i> Gerenciar pedidos e movimentações</li>
+                <li><i class="fas fa-check-circle text-success"></i> Obter relatórios detalhados e insights</li>
+            </ul>
+            <p class="font-weight-normal">Comece agora mesmo a otimizar sua gestão de estoque.</p>
+            <a class="btn btn-secondary btn-lg" href="/produto" role="button">Gerenciar Produtos</a>
+        </div>
+    </div>
 </div>
