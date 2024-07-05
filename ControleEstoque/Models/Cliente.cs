@@ -10,6 +10,8 @@ namespace ControleEstoque.Models
         [Required(ErrorMessage = "Nome é obrigatorio")]
         public required string Nome { get; set; }
 
+
+        [Display(Name = "Endereço")]
         public string? Endereco { get; set; }
 
         [Required(ErrorMessage = "Telefone é obrigatorio")]

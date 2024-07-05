@@ -51,10 +51,10 @@
                     @Html.DisplayFor(modelItem => item.Quantidade)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.FornecedorId)
+                    @Html.DisplayFor(modelItem => item.Fornecedor.Nome)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ClienteId)
+                    @Html.DisplayFor(modelItem => item.Cliente.Nome)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Data)

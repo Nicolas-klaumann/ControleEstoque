@@ -11,10 +11,14 @@ namespace ControleEstoque.Models
         public Guid Id { get; set; }
 
         [ForeignKey(nameof(Produto))]
+
+        [Display(Name = "Produto")]
         public required Guid ProdutoId { get; set; }
         public Produto Produto { get; set; }
 
         [ForeignKey(nameof(Fornecedor))]
+
+        [Display(Name = "Fornecedor")]
         public Guid? FornecedorId { get; set; }
         public Fornecedor? Fornecedor { get; set; }
 
@@ -23,6 +27,7 @@ namespace ControleEstoque.Models
         public Cliente? Cliente { get; set; }
 
         [Required(ErrorMessage = "Tipo da Movimentação é obrigatorio")]
+        [Display(Name = "Tipo de Movimentação")]
         public required string TipoMovimentacao { get; set; }
 
         [Required(ErrorMessage = "Quantidade da Movimentação é obrigatorio")]
